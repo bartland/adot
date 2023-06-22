@@ -18,7 +18,7 @@ cc() {
 b() {
   echo "build..."
   docker build -t aspnetapp .
-  docker-compose up #--remove-orphans
+  docker-compose up -d #--remove-orphans
 }
 x() {
   c
