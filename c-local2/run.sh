@@ -28,3 +28,4 @@ $cmd
 
 sleep 2
 docker ps
+echo docker logs collector -f

@@ -8,13 +8,17 @@ usage() {
 c() {
   echo "clean..."
   docker compose down -v --remove-orphans
+  #rm -rf log
 }
 cc() {
   c
-  docker rm -f collector > /dev/null 2>&1
+  echo "docker rm -f collector grafana prometheus jaeger loki"
+  docker rm -f collector grafana prometheus jaeger loki > /dev/null 2>&1
+  docker image prune -f
 }
 b() {
   echo "build..."
+  mkdir -p log; chmod -R 777 log
   docker compose up -d
 }
 x() {
@@ -26,3 +30,4 @@ $cmd
 
 sleep 2
 docker ps
+echo docker logs collector -f

@@ -16,7 +16,13 @@ services:
     env_file:
       - otel-agent.env
     environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      #- OTEL_LOGS_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4318
+      #- OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      #- OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317
       - OTEL_RESOURCE_ATTRIBUTES=service.name=otel-j-app,service.version=1.0,deployment.environment=development
       - OTEL_LOG_LEVEL=info
       - OTEL_EXPORTER_OTLP_INSECURE=true
