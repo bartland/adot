@@ -13,8 +13,14 @@ Either run
 Now run
 
 java (port 8888)
+- auto and manual instrumentation
 
 dotnet (port 8889)
+- auto instrumentation
+
+dotnetm (post 8080)
+- manual instrumentation
+- from https://github.com/aws-observability/aws-otel-dotnet
 
 #Test
 
@@ -22,7 +28,7 @@ with: ./hello.sh
 
 # Issues
 
-  1. dotnet gathers metrics but no logging
+  1. dotnet (auto) gathers metrics but no traces???
 
 ```
   See docker cp otel-n-app:/log .

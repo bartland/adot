@@ -7,15 +7,15 @@ usage() {
 }
 c() {
   echo "clean..."
-  docker rm -f otel-j-app > /dev/null 2>&1
-  docker image rm otel-j-app
-  #docker compose down -v
+  docker compose down -v
   mvn clean
   rm -rf target
 }
 cc() {
   c
   rm -f aws-opentelemetry-agent.jar
+  docker rm -f otel-j-app > /dev/null 2>&1
+  docker image rm -f otel-j-app
 }
 otel-agent() {
   if [[ ! -e target/aws-opentelemetry-agent.jar ]]; then
@@ -30,8 +30,6 @@ otel-agent() {
 }
 b() {
   echo "build..."
-  #docker rm -f otel-j-app > /dev/null 2>&1
-  docker compose down -v
   mvn package -Dmaven.test.skip=true
   otel-agent
   docker compose up -d

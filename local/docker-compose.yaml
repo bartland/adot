@@ -13,10 +13,11 @@ services:
         condition: service_healthy
     command: ["--config=/etc/collector-config.yaml"]
     volumes:
-      - ./collector-config.yaml:/etc/collector-config.yaml
+      - ./config/collector-config.yaml:/etc/collector-config.yaml
     ports:
-      - "5555:5555"
-      - "6666:6666"
+      - "8889:8889"   # Prometheus metrics exporter (scrape endpoint)
+      - "13133:13133" # health_check extension
+      - "55679:55679" # ZPages extension
 
   tempo:
     image: grafana/tempo:1.5.0

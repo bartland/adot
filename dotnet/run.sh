@@ -7,16 +7,17 @@ usage() {
 }
 c() {
   echo "clean..."
-  docker rm -f otel-n-app > /dev/null 2>&1
-  docker image rm otel-n-app
+  docker compose down -v
   dotnet clean src/src.sln
   find . -type d \( -name obj -o -name bin \) -exec rm -rf {} \;
-  #docker compose down -v
   rm -rf target log
 }
 cc() {
   c
   rm -f otel-dotnet-auto-install.sh
+  docker rm -f otel-n-app > /dev/null 2>&1
+  docker image rm -f otel-n-app
+  docker image prune -f
 }
 otel-agent() {
   if [[ ! -e target/otel-dotnet-auto-install.sh ]]; then
@@ -33,10 +34,8 @@ otel-agent() {
 }
 b() {
   echo "build..."
-  docker rm -f otel-n-app > /dev/null 2>&1
-  docker compose down -v
   dotnet publish src/src.sln -o target
-  #dotnet target/otel-n-app.dll --urls "http://localhost:8889"
+  #dotnet target/otel-n-app.dll --urls "http://localhost:1112"
   otel-agent
   docker compose up -d
   #docker exec -it otel-n-app bash

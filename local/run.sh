@@ -7,11 +7,12 @@ usage() {
 }
 c() {
   echo "clean..."
-  docker rm -f collector grafana prometheus tempo > /dev/null 2>&1
-  #docker compose down -v
+  docker compose down -v
 }
 cc() {
   c
+  docker rm -f collector grafana prometheus tempo > /dev/null 2>&1
+
 }
 b() {
   echo "build..."
