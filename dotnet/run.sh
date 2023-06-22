@@ -7,7 +7,7 @@ usage() {
 }
 c() {
   echo "clean..."
-  docker compose down -v
+  docker compose down -v --remove-orphans
   dotnet clean src/src.sln
   find . -type d \( -name obj -o -name bin \) -exec rm -rf {} \;
   rm -rf target log

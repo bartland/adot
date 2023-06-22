@@ -7,12 +7,13 @@ usage() {
 }
 c() {
   echo "clean..."
-  docker compose down -v
+  docker compose down -v --remove-orphans
 }
 cc() {
   c
+  echo "docker rm -f collector grafana prometheus tempo"
   docker rm -f collector grafana prometheus tempo > /dev/null 2>&1
-
+  docker image prune -f
 }
 b() {
   echo "build..."

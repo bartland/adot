@@ -1,26 +1,92 @@
-Java app adapted from the excellent tutorial at https://github.com/build-on-aws/instrumenting-java-apps-using-opentelemetry
+#Experiments in OTEL & ADOT Intrumentation for Java & dotNet
 
-dotnet app adapted from above plus https://github.com/open-telemetry/opentelemetry-dotnet-instrumentation
+References:
+* https://github.com/build-on-aws/instrumenting-java-apps-using-opentelemetry
+* https://github.com/aws-observability/aws-otel-java-instrumentation/
+* https://github.com/open-telemetry/opentelemetry-dotnet-instrumentation
+* https://github.com/aws-observability/aws-otel-dotnet
+* https://www.mytechramblings.com/posts/getting-started-with-opentelemetry-metrics-and-dotnet-part-2/
+* https://aws-otel.github.io/docs/introduction
+
+Using region: ap-southeast-2
 
 # Collector
 
 Either run
-  * a local OTEL collector - see local (browse results at http://localhost:3000/explore -> Search)
-  * the AWS ADOT collector - see aws (browse to x-Ray Traces or Metrics in Cloudwatch)
+  * the **local** OTEL collector using tempo - see local (browse results at http://localhost:3000/explore -> Search)
+  * the **local2** OTEL collector - see local (browse results at http://localhost:3000/explore -> Search)
+  * the **aws** ADOT collector - see aws (browse to X-Ray Traces or Metrics in Cloudwatch)
+    * Create a "Zero Spend Budget" to keep within the "Free Plan" using  https://us-east-1.console.aws.amazon.com/billing/home#/budgets/
+    * Create an access key using https://us-east-1.console.aws.amazon.com/iamv2/home?region=ap-southeast-2#/users/details/<user>?section=security_credentials
+    * Create a default local profile with region/access key using *aws cli*
+
+## AWS Metrics
+
+https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#metricsV2:graph=~()
+* All metrics -> OTeLib -> ... -> Source
 
 # Client app
 
-Now run
-
-java (port 8888)
+java (port 1111)
 - auto and manual instrumentation
 
-dotnet (port 8889)
+## metrics
+
+Source
+```
+{
+    "metrics": [
+        [ "otel-j-app", "custom.metric.number.of.exec", "OTelLib", "io.opentelemetry.metrics.hello", { "id": "m1" } ]
+    ],
+    "sparkline": true,
+    "view": "gauge",
+    "stacked": false,
+    "region": "ap-southeast-2",
+    "liveData": true,
+    "yAxis": {
+        "left": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "stat": "Sum",
+    "period": 360,
+    "setPeriodToTimeRange": false,
+    "trend": true
+}
+```
+
+dotnet (port 1112)
 - auto instrumentation
+
+## metrics
+
+Source
+```
+{
+    "metrics": [
+        [ "otel-n-app", "http.server.duration", "OTelLib", "OpenTelemetry.Instrumentation.AspNetCore", { "id": "m1" } ]
+    ],
+    "sparkline": true,
+    "view": "gauge",
+    "stacked": false,
+    "region": "ap-southeast-2",
+    "liveData": true,
+    "yAxis": {
+        "left": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "stat": "Sum",
+    "period": 360,
+    "setPeriodToTimeRange": false,
+    "trend": true
+}
+```
 
 dotnetm (post 8080)
 - manual instrumentation
-- from https://github.com/aws-observability/aws-otel-dotnet
 
 #Test
 

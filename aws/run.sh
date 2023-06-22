@@ -7,11 +7,11 @@ usage() {
 }
 c() {
   echo "clean..."
-  #docker rm -f collector > /dev/null 2>&1
-  docker compose down -v
+  docker compose down -v --remove-orphans
 }
 cc() {
   c
+  docker rm -f collector > /dev/null 2>&1
 }
 b() {
   echo "build..."

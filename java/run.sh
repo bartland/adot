@@ -7,7 +7,7 @@ usage() {
 }
 c() {
   echo "clean..."
-  docker compose down -v
+  docker compose down -v --remove-orphans
   mvn clean
   rm -rf target
 }
