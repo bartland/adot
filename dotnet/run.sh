@@ -31,6 +31,13 @@ otel-agent() {
     fi
     OTEL_DOTNET_AUTO_HOME="target/otel-dotnet-auto" sh target/otel-dotnet-auto-install.sh
   fi
+  cp otel.properties target
+}
+i() {
+    docker network inspect m2m > /dev/null 2>&1 || {
+        echo docker network create m2m
+        docker network create m2m
+    }
 }
 b() {
   echo "build..."
@@ -43,6 +50,7 @@ b() {
 }
 x() {
   c
+  i
   b
 }
 

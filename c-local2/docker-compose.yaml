@@ -78,4 +78,5 @@ services:
 
 networks:
   default:
-    name: otel
+    name: m2m
+    external: true

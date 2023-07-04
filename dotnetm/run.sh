@@ -15,6 +15,12 @@ cc() {
   c
   docker rm -f otel-n-test; docker image rm -f aspnetapp; docker image prune -f
 }
+i() {
+    docker network inspect m2m > /dev/null 2>&1 || {
+        echo docker network create m2m
+        docker network create m2m
+    }
+}
 b() {
   echo "build..."
   docker build -t aspnetapp .
@@ -22,6 +28,7 @@ b() {
 }
 x() {
   c
+  i
   b
 }
 

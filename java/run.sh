@@ -27,6 +27,13 @@ otel-agent() {
       cp target/aws-opentelemetry-agent.jar .
     fi
   fi
+  cp otel.properties target
+}
+i() {
+    docker network inspect m2m > /dev/null 2>&1 || {
+        echo docker network create m2m
+        docker network create m2m
+    }
 }
 b() {
   echo "build..."
@@ -36,6 +43,7 @@ b() {
 }
 x() {
   c
+  i
   b
 }
 

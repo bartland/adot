@@ -15,12 +15,19 @@ cc() {
   docker rm -f collector grafana prometheus tempo > /dev/null 2>&1
   docker image prune -f
 }
+i() {
+    docker network inspect m2m > /dev/null 2>&1 || {
+        echo docker network create m2m
+        docker network create m2m
+    }
+}
 b() {
   echo "build..."
   docker compose up -d
 }
 x() {
   c
+  i
   b
 }
 

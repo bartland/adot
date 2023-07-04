@@ -29,6 +29,12 @@ Either run
     * Using region: ap-southeast-2
     * Create a default local profile with region/access key using *aws cli*
 
+# Local
+
+Browse to http://localhost:3000/explore -> Explore ->
+  * Jaeger -> Search -> Service Name
+  * Prometheus -> Select metric 
+
 ## AWS Metrics
 
 https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#metricsV2:graph=~()
