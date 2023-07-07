@@ -16,8 +16,8 @@ Prereqs:
 # Collector
 
 Either run
-  * the **c-local** OTEL collector using Jaeger - see local (browse results at http://localhost:3000/explore -> Search)
-  * the **c-local2** OTEL collector using Tempo - see local (browse results at http://localhost:3000/explore -> Search)
+  * the **c-localj** OTEL collector using Jaeger - see local (browse results at http://localhost:3000/explore -> Search)
+  * the **c-localt** OTEL collector using Tempo - see local (browse results at http://localhost:3000/explore -> Search)
     * not configure for /v1/logs support (traces and metrics ok).
     * [Error] EventSource=OpenTelemetry-Exporter-OpenTelemetryProtocol, Message=Exporter failed send data to collector to http://collector:4318/v1/logs endpoint. Data will not be sent. Exception: System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
       at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
